@@ -1,3 +1,5 @@
+# https://leetcode.com/problems/binary-search/
+
 def bisect_left(a, x, lo=0, hi=None):
     if lo < 0:
         raise ValueError('lo must be non-negative')

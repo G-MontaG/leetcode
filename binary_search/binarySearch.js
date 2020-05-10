@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/binary-search/
+
 const bisectSearch = (arr, target, lo = 0, hi = null) => {
     if (lo < 0) {
         throw new Error('lo must be non-negative');
