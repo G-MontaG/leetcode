@@ -19,3 +19,5 @@ function binary_search_leftmost(A, n, T):
             R := m
     return L
 ```
+
+[Wiki](https://en.wikipedia.org/wiki/Binary_search_algorithm)
