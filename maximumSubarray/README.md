@@ -15,3 +15,5 @@ The maximum-subarray problem is interesting only when the array **contains some 
 **O(n)**
 
 This version of the algorithm will return 0 if the input contains no positive elements (including when the input is empty). For the variant of the problem which disallows empty subarrays, `best_sum` should be initialized to negative infinity instead and also in the for loop `current_sum` should be updated as `max(x, current_sum + x)`. In that case, if the input contains no positive element, the returned value is that of the largest element (i.e., the least negative value), or negative infinity if the input was empty.
+
+[Wiki](https://en.wikipedia.org/wiki/Maximum_subarray_problem)
