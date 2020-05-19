@@ -1,4 +1,5 @@
 # https://leetcode.com/problems/rotate-array
+# array should be rotated in-place
 class Solution:
     def reverse (self, nums, start, end):
         while start < end:
