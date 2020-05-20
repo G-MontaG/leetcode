@@ -10,8 +10,11 @@ First of all, you should implement a reverse function. In both languages, it is 
 Then execute three reverse steps.
 
 Original: `[1, 2, 3, 4, 5, 6, 7]` and `k = 3`
+
 Step 1: `[7, 6, 5, 4, 3, 2, 1]` reverse whole array
+
 Step 2: `[5, 6, 7, 4, 3, 2, 1]` reverse from `0` to `k - 1`
+
 Step 3: `[5, 6, 7, 1, 2, 3, 4]` reverse from `k` to `arr.length`
 
 ### Contains Duplicate
@@ -23,3 +26,7 @@ Second solution base on converting array to map or dic in python. A key is a num
 ### Single Number
 
 XOR operator
+
+### Intersection of Two Arrays
+
+Convert one array (would be great if smaller one) into count mapping. Then search for same numbers.
