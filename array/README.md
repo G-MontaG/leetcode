@@ -30,3 +30,19 @@ XOR operator
 ### Intersection of Two Arrays
 
 Convert one array (would be great if smaller one) into count mapping. Then search for same numbers.
+
+### Plus One
+
+For Python.
+
+We're given a list of digits, and the idea here is to convert that list to an integer, num. So each digit is multiplied by the proper place value and added to num. For example, if `digits = [3, 8, 2, 5]` then on the first iteration `3` is multiplied by `10` to the power of `4-1-0 = 3`, so this results in `3000`, which is added to num. Then `8` is multiplied by `10^2` and added to num, and so on.
+
+The last step is to add `1` to num, convert it to a list and return that list.
+
+For Javascript.
+
+We cannot create such big numbers. So we will manipulate with array.
+
+First, I add 1 anyway. If there is a carry-over, the new digit will also add 1. If the current digit is less than 9 then return the array.
+
+Last, when running over for loop, I just put fill 1 in front of the array.
