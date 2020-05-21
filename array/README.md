@@ -48,3 +48,15 @@ We cannot create such big numbers due to integers overflow. So we will manipulat
 First, I add 1 anyway. If there is a carry-over, the new digit will also add 1. If the current digit is less than 9 then return the array.
 
 Last, when running over for loop, I just put fill 1 in front of the array.
+
+### Move Zeroes
+
+A two-pointer approach records the position of `0` and the current number
+
+### Two Sum
+
+In one cycle, we go through all the array storing numbers as a dictionary and compare keys to the current number.
+
+### Valid Sudoku
+
+This topic require additional investigation.
