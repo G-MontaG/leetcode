@@ -60,3 +60,7 @@ In one cycle, we go through all the array storing numbers as a dictionary and co
 ### Valid Sudoku
 
 This topic require additional investigation.
+
+### Rotate Image
+
+Transpose the matrix and reverse each row.
