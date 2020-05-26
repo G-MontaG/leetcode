@@ -7,3 +7,7 @@ Two pointer solution. Pointers moving toward each other until reach the middle o
 ### Reverse String 2
 
 Same logic but applied to subarrays
+
+### Reverse Integer
+
+Convert to string, split and reverse. Double check boundaries.
