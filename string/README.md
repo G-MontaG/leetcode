@@ -21,3 +21,10 @@ In Python dictionaries remember the order of items inserted. It is the rule afte
 ### Valid Anagram
 
 Create Map (could be a plane object in this case) of `{ letter from a first string: counter }`. Then go through the second string and decrease counters. If one letter not found in Map, we can instantly return false. If no, then double-check that all counters equal to `0`. Otherwise again, return false immediately.
+
+### Valid Palindrome
+
+Filter all special characters -> split to array of letters -> reverse -> join them back -> compare filtered and reversed strings.
+If they equal, it is a palindrome.
+
+Works for both javascript and python. But in python, I have an alternative solution.
