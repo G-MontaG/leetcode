@@ -43,4 +43,8 @@ Comment from Leetcode: When you slice the string like `haystack` here for exampl
 
 Very strange problem.
 
-###
+### Longest Common Prefix
+
+In python we use `min` and `max` list methods to be sure that we don't go out of list boundaries. In javascript it isn't really matter.
+
+Comment fro Leet code: Any index that is out of bounds for a string will result in `undefined`, not an error. So, if `["following", "follow"]` are used, index `6` of `"follow"` will equal `undefined` which is not equal to `i` which is totally fine. `slice` will copy any range of characters up to a certain index. It shouldn't ever attempt to copy out of bounds characters here because of the above if, but if it did, it would just copy to the end of the string anyways without issue. eg. `"hello".slice(0, 1000);` would work just fine.
