@@ -11,3 +11,7 @@ In a stack, the element deleted from the set is the one most recently inserted: 
 Javascript has `push` and `pop` methods, which operate on ordinary Javascript array objects.
 
 ### Queue
+
+Similarly, in a queue, the element deleted is always the one that has been in the set for the longest time: the queue implements a first-in, first-out, or FIFO, policy.
+
+Javascript has `push` and `shift` methods, which operate on ordinary Javascript array objects.
