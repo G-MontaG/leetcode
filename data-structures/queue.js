@@ -1,13 +1,12 @@
 class Queue {
-  _queue = [];
-
   constructor(elements) {
+    this._queue = [];
     if (elements && Array.isArray(elements) && elements.length > 0) {
       this._queue = [...elements];
     }
   }
 
-  isQueueEmpty() {
+  isEmpty() {
     if (this._queue.length == 0) {
       return true;
     }
@@ -19,14 +18,14 @@ class Queue {
   }
 
   dequeue() {
-    if (this.isQueueEmpty()) {
+    if (this.isEmpty()) {
       return "Underflow";
     }
     return this._queue.shift();
   }
 
   front() {
-    if (this.isQueueEmpty()) {
+    if (this.isEmpty()) {
       return "Underflow";
     }
     return this._queue[0];
@@ -36,7 +35,7 @@ class Queue {
 const example = new Queue([2, 3]);
 console.log(example);
 
-console.log("isQueueEmpty: ", example.isQueueEmpty()); // false
+console.log("isQueueEmpty: ", example.isEmpty()); // false
 
 console.log("Enqueue 4");
 example.enqueue(4);
@@ -50,6 +49,6 @@ console.log("Dequeue: ", example.dequeue()); // 3
 console.log("Dequeue: ", example.dequeue()); // 4
 console.log("Dequeue: ", example.dequeue()); // 1
 
-console.log("isQueueEmpty: ", example.isQueueEmpty()); // true
+console.log("isQueueEmpty: ", example.isEmpty()); // true
 
 console.log("Dequeue: ", example.dequeue()); // Underflow
