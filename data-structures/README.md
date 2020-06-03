@@ -41,3 +41,13 @@ Another disadvantage of linked lists is the extra storage needed for references.
 A balanced tree has similar memory access patterns and space overhead to a linked list while permitting much more efficient indexing, taking `O(log n)` time instead of `O(n)` for a random access. However, insertion and deletion operations are more expensive due to the overhead of tree manipulations to maintain balance. Schemes exist for trees to automatically maintain themselves in a balanced state: AVL trees or red-black trees.
 
 [Wiki Linked list](https://en.wikipedia.org/wiki/Linked_list), [Wiki Doubly linked list](https://en.wikipedia.org/wiki/Doubly_linked_list)
+
+### Heap
+
+Heap is a specialized tree-based data structure which is essentially an almost complete.
+
+The heap is one maximally efficient implementation of an abstract data type called a priority queue, and in fact, priority queues are often referred to as _heaps_, regardless of how they may be implemented. In a heap, the highest (or lowest) priority element is always stored at the root. However, a heap is not a sorted structure; it can be regarded as being partially ordered. A heap is a useful data structure when it is necessary to repeatedly remove the object with the **highest (or lowest)** priority.
+
+**Heapsort**: One of the best sorting methods being in-place and with no quadratic worst-case scenarios. [Wiki](https://en.wikipedia.org/wiki/Heapsort)
+
+[Wiki](<https://en.wikipedia.org/wiki/Heap_(data_structure)>)
