@@ -1,162 +1,240 @@
-class Heap {
-  constructor(cmp) {
-    this._heap = [];
-    // Function used for comparison between the elements.
-    if (typeof cmp === "function") {
-      this._cmp = cmp;
-    } else {
-      this._cmp = function (a, b) {
-        return a - b;
-      };
-    }
+const { Comparator } = require("../comparator");
+
+class MaxHeap {
+  constructor(comparatorFunction) {
+    // Array representation of the heap.
+    this.heapContainer = [];
+    this.compare = new Comparator(comparatorFunction);
   }
 
-  /**
-   * Exchange indexes with start index given as argument
-   * to turn the tree into a valid heap. On a single call
-   * this method maintains only a single "branch" of the heap.
-   *
-   * Time complexity: O(log N).
-   */
-  _heapify(index) {
-    let extr = index;
-    let left = 2 * index + 1;
-    let right = 2 * index + 2;
-    let temp;
-
-    if (
-      left < this._heap.length &&
-      this._cmp(this._heap[left], this._heap[index]) > 0
-    ) {
-      extr = left;
-    }
-
-    if (
-      right < this._heap.length &&
-      this._cmp(this._heap[right], this._heap[index]) > 0 &&
-      this._cmp(this._heap[right], this._heap[left]) > 0
-    ) {
-      extr = right;
-    }
-
-    if (index !== extr) {
-      temp = this._heap[index];
-      this._heap[index] = this._heap[extr];
-      this._heap[extr] = temp;
-      this._heapify(extr);
-    }
+  getLeftChildIndex(parentIndex) {
+    return 2 * parentIndex + 1;
   }
 
-  /**
-   * Changes the key.
-   * Complexity: O(log N).
-   */
-  changeKey(index, value) {
-    this._heap[index] = value;
-    let elem = this._heap[index];
-    let parent = Math.floor(index / 2);
-    let temp;
-    if (elem !== undefined) {
-      while (parent >= 0 && this._cmp(elem, this._heap[parent]) > 0) {
-        temp = this._heap[parent];
-        this._heap[parent] = elem;
-        this._heap[index] = temp;
-        index = parent;
-        parent = Math.floor(parent / 2);
+  getRightChildIndex(parentIndex) {
+    return 2 * parentIndex + 2;
+  }
+
+  getParentIndex(childIndex) {
+    return Math.floor((childIndex - 1) / 2);
+  }
+
+  hasParent(childIndex) {
+    return this.getParentIndex(childIndex) >= 0;
+  }
+
+  hasLeftChild(parentIndex) {
+    return this.getLeftChildIndex(parentIndex) < this.heapContainer.length;
+  }
+
+  hasRightChild(parentIndex) {
+    return this.getRightChildIndex(parentIndex) < this.heapContainer.length;
+  }
+
+  leftChild(parentIndex) {
+    return this.heapContainer[this.getLeftChildIndex(parentIndex)];
+  }
+
+  rightChild(parentIndex) {
+    return this.heapContainer[this.getRightChildIndex(parentIndex)];
+  }
+
+  parent(childIndex) {
+    return this.heapContainer[this.getParentIndex(childIndex)];
+  }
+
+  swap(indexOne, indexTwo) {
+    const tmp = this.heapContainer[indexTwo];
+    this.heapContainer[indexTwo] = this.heapContainer[indexOne];
+    this.heapContainer[indexOne] = tmp;
+  }
+
+  peek() {
+    if (this.heapContainer.length === 0) {
+      return null;
+    }
+
+    return this.heapContainer[0];
+  }
+
+  poll() {
+    if (this.heapContainer.length === 0) {
+      return null;
+    }
+
+    if (this.heapContainer.length === 1) {
+      return this.heapContainer.pop();
+    }
+
+    const item = this.heapContainer[0];
+
+    // Move the last element from the end to the head.
+    this.heapContainer[0] = this.heapContainer.pop();
+    this.heapifyDown();
+
+    return item;
+  }
+
+  add(item) {
+    this.heapContainer.push(item);
+    this.heapifyUp();
+    return this;
+  }
+
+  remove(item, comparator = this.compare) {
+    // Find number of items to remove.
+    const numberOfItemsToRemove = this.find(item, comparator).length;
+
+    for (let iteration = 0; iteration < numberOfItemsToRemove; iteration += 1) {
+      // We need to find item index to remove each time after removal since
+      // indices are being changed after each heapify process.
+      const indexToRemove = this.find(item, comparator).pop();
+
+      // If we need to remove last child in the heap then just remove it.
+      // There is no need to heapify the heap afterwards.
+      if (indexToRemove === this.heapContainer.length - 1) {
+        this.heapContainer.pop();
+      } else {
+        // Move last element in heap to the vacant (removed) position.
+        this.heapContainer[indexToRemove] = this.heapContainer.pop();
+
+        // Get parent.
+        const parentItem = this.parent(indexToRemove);
+
+        // If there is no parent or parent is in correct order with the node
+        // we're going to delete then heapify down. Otherwise heapify up.
+        if (
+          this.hasLeftChild(indexToRemove) &&
+          (!parentItem ||
+            this.pairIsInCorrectOrder(
+              parentItem,
+              this.heapContainer[indexToRemove]
+            ))
+        ) {
+          this.heapifyDown(indexToRemove);
+        } else {
+          this.heapifyUp(indexToRemove);
+        }
       }
-      this._heapify(index);
     }
-    return parent;
+
+    return this;
   }
 
-  /**
-   * Updates a given node. This operation is useful
-   * in algorithms like Dijkstra, A* where we need
-   * to decrease/increase value of the given node.
-   */
-  update(node) {
-    var idx = this._heap.indexOf(node);
-    if (idx >= 0) {
-      this.changeKey(idx, node);
+  find(item, comparator = this.compare) {
+    const foundItemIndices = [];
+
+    for (
+      let itemIndex = 0;
+      itemIndex < this.heapContainer.length;
+      itemIndex += 1
+    ) {
+      if (comparator.equal(item, this.heapContainer[itemIndex])) {
+        foundItemIndices.push(itemIndex);
+      }
     }
+
+    return foundItemIndices;
   }
 
-  /**
-   * Adds new element to the heap.
-   * Complexity: O(log N).
-   */
-  add(value) {
-    this._heap.push(value);
-    return this.changeKey(this._heap.length - 1, value);
-  }
-
-  /**
-   * Returns current value which is on the top of the heap.
-   * Complexity: O(1).
-   */
-  top() {
-    return this._heap[0];
-  }
-
-  /**
-   * Removes and returns the current extremum value
-   * which is on the top of the heap.
-   * Complexity: O(log N).
-   */
-  extract() {
-    if (!this._heap.length) {
-      throw "The heap is already empty!";
-    }
-    var extr = this._heap.shift();
-    this._heapify(0);
-    return extr;
-  }
-
-  getCollection() {
-    return this._heap;
-  }
-
-  /** Checks or heap is empty. */
   isEmpty() {
-    return !this._heap.length;
+    return !this.heapContainer.length;
+  }
+
+  toString() {
+    return this.heapContainer.toString();
+  }
+
+  heapifyUp(customStartIndex) {
+    // Take the last element (last in array or the bottom left in a tree)
+    // in the heap container and lift it up until it is in the correct
+    // order with respect to its parent element.
+    let currentIndex = customStartIndex || this.heapContainer.length - 1;
+
+    while (
+      this.hasParent(currentIndex) &&
+      !this.pairIsInCorrectOrder(
+        this.parent(currentIndex),
+        this.heapContainer[currentIndex]
+      )
+    ) {
+      this.swap(currentIndex, this.getParentIndex(currentIndex));
+      currentIndex = this.getParentIndex(currentIndex);
+    }
+  }
+
+  heapifyDown(customStartIndex = 0) {
+    // Compare the parent element to its children and swap parent with the appropriate
+    // child (smallest child for MinHeap, largest child for MaxHeap).
+    // Do the same for next children after swap.
+    let currentIndex = customStartIndex;
+    let nextIndex = null;
+
+    while (this.hasLeftChild(currentIndex)) {
+      if (
+        this.hasRightChild(currentIndex) &&
+        this.pairIsInCorrectOrder(
+          this.rightChild(currentIndex),
+          this.leftChild(currentIndex)
+        )
+      ) {
+        nextIndex = this.getRightChildIndex(currentIndex);
+      } else {
+        nextIndex = this.getLeftChildIndex(currentIndex);
+      }
+
+      if (
+        this.pairIsInCorrectOrder(
+          this.heapContainer[currentIndex],
+          this.heapContainer[nextIndex]
+        )
+      ) {
+        break;
+      }
+
+      this.swap(currentIndex, nextIndex);
+      currentIndex = nextIndex;
+    }
+  }
+
+  /**
+   * Checks if pair of heap elements is in correct order.
+   * For MinHeap the first element must be always smaller or equal.
+   * For MaxHeap the first element must be always bigger or equal.
+   */
+  pairIsInCorrectOrder(firstElement, secondElement) {
+    return this.compare.greaterThanOrEqual(firstElement, secondElement);
   }
 }
 
-const heap = new Heap((a, b) => a.birthyear - b.birthyear);
+const heap = new MaxHeap((a, b) => a.birthyear - b.birthyear);
 
-console.log(
-  "Add: ",
-  { name: "John", birthyear: 1981 },
-  heap.add({ name: "John", birthyear: 1981 })
-);
-console.log(
-  "Add: ",
-  { name: "Pavlo", birthyear: 2000 },
-  heap.add({ name: "Pavlo", birthyear: 2000 })
-);
-console.log(
-  "Add: ",
-  { name: "Garry", birthyear: 1989 },
-  heap.add({ name: "Garry", birthyear: 1989 })
-);
-console.log(
-  "Add: ",
-  { name: "Derek", birthyear: 1990 },
-  heap.add({ name: "Derek", birthyear: 1990 })
-);
-console.log(
-  "Add: ",
-  { name: "Ivan", birthyear: 1966 },
-  heap.add({ name: "Ivan", birthyear: 1966 })
-);
+console.log("Add: ", { name: "John", birthyear: 1981 });
+console.log(heap.add({ name: "John", birthyear: 1981 }));
 
-console.log("Top: ", heap.top()); // { name: "John", birthyear: 1981 }
+console.log("Add: ", { name: "Pavlo", birthyear: 2000 });
+console.log(heap.add({ name: "Pavlo", birthyear: 2000 }));
 
-console.log("Update: ", { name: "John", birthyear: 1981 });
-heap.update({ name: "John", birthyear: 1981 });
+console.log("Add: ", { name: "Garry", birthyear: 1989 });
+console.log(heap.add({ name: "Garry", birthyear: 1989 }));
 
-console.log(heap.extract()); // { name: 'Pavlo', birthyear: 2000 }
-console.log(heap.extract()); // { name: 'Derek', birthyear: 1990 }
-console.log(heap.extract()); // { name: 'Garry', birthyear: 1989 }
-console.log(heap.extract()); // { name: 'John', birthyear: 1982 }
-console.log(heap.extract()); // { name: 'Ivan', birthyear: 1966 }
+console.log("Add: ", { name: "Derek", birthyear: 1990 });
+console.log(heap.add({ name: "Derek", birthyear: 1990 }));
+
+console.log("Add: ", { name: "Ivan", birthyear: 1966 });
+console.log(heap.add({ name: "Ivan", birthyear: 1966 }));
+
+console.log("Peek: ", heap.peek()); // { name: "John", birthyear: 1981 }
+
+console.log("Poll: ", heap.poll()); // { name: 'Pavlo', birthyear: 2000 }
+console.log("Poll: ", heap.poll()); // { name: 'Derek', birthyear: 1990 }
+
+const comparator = new Comparator((a, b) => {
+  if (a === b.birthyear) {
+    return 0;
+  }
+
+  return a < b.birthyear ? -1 : 1;
+});
+console.log("Find index of 1989 year item: ", heap.find(1989, comparator));
+console.log("Remove this item", heap.remove(1989, comparator));

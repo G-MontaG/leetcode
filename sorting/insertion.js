@@ -1,23 +1,27 @@
-function compare(a, b) {
-  return a - b;
-}
+const { Comparator } = require("../comparator");
 
-/**
- * Insertionsort algorithm.
- * Time complexity: O(N^2).
- */
-function insertionSort(array, cmp) {
-  cmp = cmp || compare;
-  const length = array.length;
-  for (let i = 1; i < length; i++) {
-    const current = array[i];
-    let j = i - 1;
-    while (j >= 0 && cmp(array[j], current) > 0) {
-      array[j + 1] = array[j];
-      j--;
+function insertionSort(array, comparatorFunction) {
+  comparator = new Comparator(comparatorFunction);
+  // Go through all array elements...
+  for (let i = 0; i < array.length; i += 1) {
+    let currentIndex = i;
+
+    // Go and check if previous elements and greater then current one.
+    // If this is the case then swap that elements.
+    while (
+      array[currentIndex - 1] !== undefined &&
+      comparator.lessThan(array[currentIndex], array[currentIndex - 1])
+    ) {
+      // Swap the elements.
+      const tmp = array[currentIndex - 1];
+      array[currentIndex - 1] = array[currentIndex];
+      array[currentIndex] = tmp;
+
+      // Shift current index left.
+      currentIndex -= 1;
     }
-    array[j + 1] = current;
   }
+
   return array;
 }
 

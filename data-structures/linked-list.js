@@ -1,190 +1,267 @@
-class Node {
-  constructor(data) {
-    this.data = data;
-    this.next = null;
-    this.prev = null;
+const { Comparator } = require("../comparator");
+
+class DoublyLinkedListNode {
+  constructor(value, next = null, previous = null) {
+    this.value = value;
+    this.next = next;
+    this.previous = previous;
+  }
+
+  toString(callback) {
+    return callback ? callback(this.value) : `${this.value}`;
   }
 }
 
-class LinkedList {
-  constructor() {
-    this.first = null;
-    this.last = null;
+class DoublyLinkedList {
+  constructor(comparatorFunction) {
+    this.head = null;
+    this.tail = null;
+
+    this.compare = new Comparator(comparatorFunction);
   }
 
-  /** Add data to the end of linked list */
-  push(data) {
-    const node = new Node(data);
-    if (this.first === null) {
-      this.first = this.last = node;
-    } else {
-      let temp = this.last;
-      this.last = node;
-      node.prev = temp;
-      temp.next = node;
+  prepend(value) {
+    // Make new node to be a head.
+    const newNode = new DoublyLinkedListNode(value, this.head);
+
+    // If there is head, then it won't be head anymore.
+    // Therefore, make its previous reference to be new node (new head).
+    // Then mark the new node as head.
+    if (this.head) {
+      this.head.previous = newNode;
     }
+    this.head = newNode;
+
+    // If there is no tail yet let's make new node a tail.
+    if (!this.tail) {
+      this.tail = newNode;
+    }
+
+    return this;
   }
 
-  /** Add data to the beginning of linked list */
-  unshift(data) {
-    const node = new Node(data);
-    if (this.first === null) {
-      this.first = this.last = node;
-    } else {
-      let temp = this.first;
-      this.first = node;
-      node.next = temp;
-      temp.prev = node;
+  append(value) {
+    const newNode = new DoublyLinkedListNode(value);
+
+    // If there is no head yet let's make new node a head.
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+
+      return this;
     }
+
+    // Attach new node to the end of linked list.
+    this.tail.next = newNode;
+
+    // Attach current tail to the new node's previous reference.
+    newNode.previous = this.tail;
+
+    // Set new node to be the tail of linked list.
+    this.tail = newNode;
+
+    return this;
   }
 
-  /** In order traversal of the linked list */
-  inorder(cb) {
-    let temp = this.first;
-    while (temp) {
-      cb(temp);
-      temp = temp.next;
-    }
-  }
-
-  /** Remove data from the linked list */
-  remove(data) {
-    if (this.first === null) {
-      return false;
-    }
-    let temp = this.first;
-    let next;
-    let prev;
-    while (temp) {
-      if (temp.data === data) {
-        next = temp.next;
-        prev = temp.prev;
-        if (next) {
-          next.prev = prev;
-        }
-        if (prev) {
-          prev.next = next;
-        }
-        if (temp === this.first) {
-          this.first = next;
-        }
-        if (temp === this.last) {
-          this.last = prev;
-        }
-        return true;
-      }
-      temp = temp.next;
-    }
-    return false;
-  }
-
-  /** Check if linked list contains cycle */
-  hasCycle() {
-    let fast = this.first;
-    let slow = this.first;
-    while (true) {
-      if (fast === null) {
-        return false;
-      }
-      fast = fast.next;
-      if (fast === null) {
-        return false;
-      }
-      fast = fast.next;
-      slow = slow.next;
-      if (fast === slow) {
-        return true;
-      }
-    }
-  }
-
-  /** Return last node from the linked list */
-  pop() {
-    if (this.last === null) {
+  delete(value) {
+    if (!this.head) {
       return null;
     }
-    let temp = this.last;
-    this.last = this.last.prev;
-    return temp;
+
+    let deletedNode = null;
+    let currentNode = this.head;
+
+    while (currentNode) {
+      if (this.compare.equal(currentNode.value, value)) {
+        deletedNode = currentNode;
+
+        if (deletedNode === this.head) {
+          // If HEAD is going to be deleted...
+
+          // Set head to second node, which will become new head.
+          this.head = deletedNode.next;
+
+          // Set new head's previous to null.
+          if (this.head) {
+            this.head.previous = null;
+          }
+
+          // If all the nodes in list has same value that is passed as argument
+          // then all nodes will get deleted, therefore tail needs to be updated.
+          if (deletedNode === this.tail) {
+            this.tail = null;
+          }
+        } else if (deletedNode === this.tail) {
+          // If TAIL is going to be deleted...
+
+          // Set tail to second last node, which will become new tail.
+          this.tail = deletedNode.previous;
+          this.tail.next = null;
+        } else {
+          // If MIDDLE node is going to be deleted...
+          const previousNode = deletedNode.previous;
+          const nextNode = deletedNode.next;
+
+          previousNode.next = nextNode;
+          nextNode.previous = previousNode;
+        }
+      }
+
+      currentNode = currentNode.next;
+    }
+
+    return deletedNode;
   }
 
-  /** Return first node from the linked list */
-  shift() {
-    if (this.first === null) {
+  find(value = undefined, callback = undefined) {
+    if (!this.head) {
       return null;
     }
-    let temp = this.first;
-    this.first = this.first.next;
-    return temp;
-  }
 
-  /** Reverses the linked list recursively */
-  recursiveReverse() {
-    function inverse(current, next) {
-      if (!next) {
-        return;
+    let currentNode = this.head;
+
+    while (currentNode) {
+      // If callback is specified then try to find node by callback.
+      if (callback && callback(currentNode.value)) {
+        return currentNode;
       }
-      inverse(next, next.next);
-      next.prev = next.next;
-      next.next = current;
+
+      // If value is specified then try to compare by value..
+      if (value !== undefined && this.compare.equal(currentNode.value, value)) {
+        return currentNode;
+      }
+
+      currentNode = currentNode.next;
     }
 
-    if (!this.first) {
-      return;
-    }
-    inverse(this.first, this.first.next);
-    this.first.prev = this.first.next;
-    this.first.next = null;
-    let temp = this.first;
-    this.first = this.last;
-    this.last = temp;
+    return null;
   }
 
-  /** Reverses the linked list iteratively */
+  deleteTail() {
+    if (!this.tail) {
+      // No tail to delete.
+      return null;
+    }
+
+    if (this.head === this.tail) {
+      // There is only one node in linked list.
+      const deletedTail = this.tail;
+      this.head = null;
+      this.tail = null;
+
+      return deletedTail;
+    }
+
+    // If there are many nodes in linked list...
+    const deletedTail = this.tail;
+
+    this.tail = this.tail.previous;
+    this.tail.next = null;
+
+    return deletedTail;
+  }
+
+  deleteHead() {
+    if (!this.head) {
+      return null;
+    }
+
+    const deletedHead = this.head;
+
+    if (this.head.next) {
+      this.head = this.head.next;
+      this.head.previous = null;
+    } else {
+      this.head = null;
+      this.tail = null;
+    }
+
+    return deletedHead;
+  }
+
+  toArray() {
+    const nodes = [];
+
+    let currentNode = this.head;
+    while (currentNode) {
+      nodes.push(currentNode);
+      currentNode = currentNode.next;
+    }
+
+    return nodes;
+  }
+
+  fromArray(values) {
+    values.forEach((value) => this.append(value));
+
+    return this;
+  }
+
+  toString(callback) {
+    return this.toArray()
+      .map((node) => node.toString(callback))
+      .toString();
+  }
+
   reverse() {
-    if (!this.first || !this.first.next) {
-      return;
+    let currNode = this.head;
+    let prevNode = null;
+    let nextNode = null;
+
+    while (currNode) {
+      // Store next node.
+      nextNode = currNode.next;
+      prevNode = currNode.previous;
+
+      // Change next node of the current node so it would link to previous node.
+      currNode.next = prevNode;
+      currNode.previous = nextNode;
+
+      // Move prevNode and currNode nodes one step forward.
+      prevNode = currNode;
+      currNode = nextNode;
     }
-    let current = this.first;
-    let next;
 
-    do {
-      next = current.next;
-      current.next = current.prev;
-      current.prev = next;
-      current = next;
-    } while (next);
+    // Reset head and tail.
+    this.tail = this.head;
+    this.head = prevNode;
 
-    let tmp = this.first;
-    this.first = this.last;
-    this.last = tmp;
+    return this;
   }
 }
 
-const linkedList = new LinkedList();
+const linkedList = new DoublyLinkedList();
 console.log(linkedList);
 
-console.log("Push from 1 to 5");
-linkedList.push(1);
-linkedList.push(2);
-linkedList.push(3);
-linkedList.push(4);
-linkedList.push(5);
+console.log("Append from 1 to 5");
+linkedList.append(1);
+linkedList.append(2);
+linkedList.append(3);
+linkedList.append(4);
+linkedList.append(5);
 
-console.log("First data: ", linkedList.first.data); // 1
-console.log("Last data: ", linkedList.last.data); // 5
+console.log("First data: ", linkedList.head.toString()); // 1
+console.log("Last data: ", linkedList.tail.toString()); // 5
 
-console.log("Pop: ", linkedList.pop().data); // 5
-console.log("Pop: ", linkedList.pop().data); // 4
+console.log("Prepend 1");
+linkedList.prepend(2);
 
-console.log("Shift: ", linkedList.shift().data); // 1
+console.log("First data: ", linkedList.head.value); // 2
 
-console.log("Unshift 3");
-linkedList.unshift(3);
-console.log("Shift: ", linkedList.shift().data); // 3
+console.log("Delete tail: ", linkedList.deleteTail().value); // 5
+console.log("Delete tail: ", linkedList.deleteTail().value); // 4
 
-console.log("Remove 3");
-linkedList.remove(3);
-console.log("Pop: ", linkedList.pop().data); // 2
-console.log("Pop: ", linkedList.pop().data); // 3, because of previous unshift
-console.log("Pop: ", linkedList.pop()); // null
+console.log("Delete head: ", linkedList.deleteHead().value); // 2
+
+console.log("Append more 3");
+linkedList.append(3);
+linkedList.append(3);
+linkedList.append(3);
+console.log(linkedList.toString());
+console.log("Delete all 3");
+linkedList.delete(3);
+console.log(linkedList.toString());
+
+console.log("Find 2: ", linkedList.find(2).value);
+
+console.log("Reverse list", linkedList.reverse().toString());
