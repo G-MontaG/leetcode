@@ -3,7 +3,7 @@ const { Comparator } = require("../comparator");
 function insertionSort(array, comparatorFunction) {
   comparator = new Comparator(comparatorFunction);
   // Go through all array elements...
-  for (let i = 0; i < array.length; i += 1) {
+  for (let i = 0; i < array.length; i++) {
     let currentIndex = i;
 
     // Go and check if previous elements and greater then current one.
@@ -13,12 +13,13 @@ function insertionSort(array, comparatorFunction) {
       comparator.lessThan(array[currentIndex], array[currentIndex - 1])
     ) {
       // Swap the elements.
-      const tmp = array[currentIndex - 1];
-      array[currentIndex - 1] = array[currentIndex];
-      array[currentIndex] = tmp;
+      [array[currentIndex], array[currentIndex - 1]] = [
+        array[currentIndex - 1],
+        array[currentIndex],
+      ];
 
       // Shift current index left.
-      currentIndex -= 1;
+      currentIndex--;
     }
   }
 

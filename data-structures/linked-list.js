@@ -223,8 +223,7 @@ class DoublyLinkedList {
     }
 
     // Reset head and tail.
-    this.tail = this.head;
-    this.head = prevNode;
+    [this.tail, this.head] = [this.head, this.tail];
 
     return this;
   }
