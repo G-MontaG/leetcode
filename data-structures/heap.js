@@ -44,27 +44,20 @@ class MaxHeap {
   }
 
   swap(indexOne, indexTwo) {
-    const tmp = this.heapContainer[indexTwo];
-    this.heapContainer[indexTwo] = this.heapContainer[indexOne];
-    this.heapContainer[indexOne] = tmp;
+    [this.heapContainer[indexTwo], this.heapContainer[indexOne]] = [
+      this.heapContainer[indexOne],
+      this.heapContainer[indexTwo],
+    ];
   }
 
   peek() {
-    if (this.heapContainer.length === 0) {
-      return null;
-    }
-
+    if (this.heapContainer.length === 0) return null;
     return this.heapContainer[0];
   }
 
   poll() {
-    if (this.heapContainer.length === 0) {
-      return null;
-    }
-
-    if (this.heapContainer.length === 1) {
-      return this.heapContainer.pop();
-    }
+    if (this.heapContainer.length === 0) return null;
+    if (this.heapContainer.length === 1) return this.heapContainer[0];
 
     const item = this.heapContainer[0];
 
