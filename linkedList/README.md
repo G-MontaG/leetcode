@@ -18,3 +18,7 @@ Best way to understand solution is walk through the algorithm using the lists yo
 
 Solution in-place.
 Comment from author: "If you just use one (like `cur`) how can you return, due to the fact that cur is not pointing to the head any more."
+
+## Palindrome Linked List
+
+See comments in python solution
