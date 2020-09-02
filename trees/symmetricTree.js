@@ -30,7 +30,7 @@ function isMirror(p, q) {
 
   // Perform preorder traversal
   while (s1.length > 0 || s2.length > 0) {
-    var n1 = s1.pop(),
+    const n1 = s1.pop(),
       n2 = s2.pop();
 
     // Two null nodes, let's continue
@@ -52,13 +52,13 @@ function isMirror(p, q) {
 
 // BFS
 function isMirror(s, t) {
-  var q1 = [s],
+  const q1 = [s],
     q2 = [t];
 
   // Perform breadth-first search
   while (q1.length > 0 || q2.length > 0) {
     // Dequeue
-    var n1 = q1.shift(),
+    const n1 = q1.shift(),
       n2 = q2.shift();
 
     // Two null nodes, let's continue
