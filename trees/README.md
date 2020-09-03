@@ -19,3 +19,7 @@ See comments in python solution
 ## Binary Tree Level Order Traversal
 
 Solution based on BFS
+
+## Convert Sorted Array to Binary Search Tree
+
+Recursive solution
