@@ -1,3 +1,0 @@
-# Searching
-
-## First Bad Version

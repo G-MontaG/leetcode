@@ -13,7 +13,7 @@ const solution = (isBadVersion) => {
     let start = 1,
       end = n;
     while (start < end) {
-      const mid = Math.floor(start + (end - start) / 2);
+      const mid = Math.floor((start + end) / 2);
       if (isBadVersion(mid)) {
         end = mid; // look on left side of mid
       } else {
