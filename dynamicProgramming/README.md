@@ -20,4 +20,4 @@ This can be achieved in either of two ways:
 
 ## Climbing Stairs
 
-Recursion
+Recursion with memoization
