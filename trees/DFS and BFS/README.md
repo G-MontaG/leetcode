@@ -6,6 +6,11 @@ Depth-first search (DFS) is an algorithm for traversing or searching tree or gra
 
 [Wiki](https://en.wikipedia.org/wiki/Depth-first_search)
 
+The non-recursive implementation is similar to breadth-first search but differs from it in two ways:
+
+- it uses a stack instead of a queue, and
+- it delays checking whether a vertex has been discovered until the vertex is popped from the stack rather than making this check before adding the vertex.
+
 # Breadth-first search
 
 Breadth-first search (BFS) is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root (or some arbitrary node of a graph, sometimes referred to as a 'search key'), and explores all of the neighbor nodes at the present depth prior to moving on to the nodes at the next depth level.

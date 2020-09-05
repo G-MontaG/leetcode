@@ -21,3 +21,7 @@ This can be achieved in either of two ways:
 ## Climbing Stairs
 
 Recursion with memoization
+
+## House Robber
+
+Iterative solution
