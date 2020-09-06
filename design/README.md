@@ -18,6 +18,12 @@ j ← random integer such that i ≤ j < n
 exchange a[i] and a[j]
 ```
 
+[Wiki](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle)
+
 ## Shuffle an Array
 
 Fisher–Yates shuffle algorithm. Python ans JS have same algorithm but different implementation.
+
+## Min Stack
+
+Look at the code
