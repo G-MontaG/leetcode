@@ -26,3 +26,7 @@ It does so by iteratively marking as composite (i.e., not prime) the multiples o
 ## Power of Three
 
 Javascript use radix-3 or Math logarithms, python use loop.
+
+## Roman to Integer
+
+Note for python: The trick is that the last letter is always added. Except the last one, if one letter is less than its latter one, this letter is subtracted.
