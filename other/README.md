@@ -34,3 +34,13 @@ Solution is Hamming weight algorithm.
 ## Hamming Distance
 
 Solution is Hamming distance algorithm.
+
+## Reverse Bits
+
+Bit operations
+
+## Pascal's Triangle
+
+![GIF](https://upload.wikimedia.org/wikipedia/commons/0/0d/PascalTriangleAnimated2.gif)
+
+[Wiki](https://en.wikipedia.org/wiki/Pascal%27s_triangle)
