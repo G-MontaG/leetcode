@@ -3,7 +3,7 @@
  * @param {number} n
  * @return {boolean}
  */
-var isPowerOfThree = function (n) {
+const isPowerOfThree = (n) => {
   return (
     n
       .toString(3)
@@ -16,6 +16,6 @@ var isPowerOfThree = function (n) {
  * @param {number} n
  * @return {boolean}
  */
-var isPowerOfThree = function (n) {
+const isPowerOfThree = (n) => {
   return Number.isInteger(Math.log10(n) / Math.log10(3));
 };
