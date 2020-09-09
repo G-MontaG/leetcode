@@ -37,10 +37,18 @@ Solution is Hamming distance algorithm.
 
 ## Reverse Bits
 
-Bit operations
+Bit operations.
 
 ## Pascal's Triangle
 
 ![GIF](https://upload.wikimedia.org/wikipedia/commons/0/0d/PascalTriangleAnimated2.gif)
 
 [Wiki](https://en.wikipedia.org/wiki/Pascal%27s_triangle)
+
+## Valid Parentheses
+
+Solution in using stack and dictionary.
+
+## Missing Number
+
+Two counters.
