@@ -57,6 +57,10 @@ A two-pointer approach records the position of `0` and the current number
 
 In one cycle, we go through all the array storing numbers as a dictionary and compare keys to the current number.
 
+```js
+const secondAddend = target - nums[i];
+```
+
 ### Valid Sudoku
 
 This topic require additional investigation.
