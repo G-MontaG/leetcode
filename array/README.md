@@ -73,3 +73,19 @@ Transpose the matrix and reverse each row.
 
 Two pointers technique.
 [Youtube](https://www.youtube.com/watch?v=cF1DEqn4HLw)
+
+### Set Matrix Zeroes
+
+Add some background to save time for future people to understand
+
+```javascript
+console.log(0 === -0); // true
+console.log(Object.is(-0, 0)); // false
+console.log(1 / -0 === Infinity); // -0
+console.log(1 / 0 === Infinity); // 0
+
+console.log(0 && 0); // 0
+console.log(0 && -0); // 0
+console.log(-0 && 0); // -0
+console.log(-0 && -0); // -0
+```
