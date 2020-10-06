@@ -89,3 +89,9 @@ console.log(0 && -0); // 0
 console.log(-0 && 0); // -0
 console.log(-0 && -0); // -0
 ```
+
+### Group Anagrams
+
+Code complexity - `O(nmlog(m))`
+There is a `O(KN)` algorithm for this, slightly faster than `O(Klog(K)N)`. Instead of sorting, we just keep the counts of each letter.
+But I personally don't like it.
