@@ -74,6 +74,8 @@ Transpose the matrix and reverse each row.
 Two pointers technique.
 [Youtube](https://www.youtube.com/watch?v=cF1DEqn4HLw)
 
+Code complexity - `O(n^2)`
+
 ### Set Matrix Zeroes
 
 Add some background to save time for future people to understand
@@ -90,8 +92,15 @@ console.log(-0 && 0); // -0
 console.log(-0 && -0); // -0
 ```
 
+Code complexity - `O(n * m)`
+
 ### Group Anagrams
 
 Code complexity - `O(nmlog(m))`
 There is a `O(KN)` algorithm for this, slightly faster than `O(Klog(K)N)`. Instead of sorting, we just keep the counts of each letter.
 But I personally don't like it.
+
+### Longest Substring Without Repeating Characters
+
+Two pointers technique. Second pointer is reducer accumulator.
+Code complexity - `O(n)`
