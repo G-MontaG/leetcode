@@ -102,5 +102,10 @@ But I personally don't like it.
 
 ### Longest Substring Without Repeating Characters
 
-Two pointers technique. Second pointer is reducer accumulator.
+Two pointers technique. Second pointer is reducer current index.
 Code complexity - `O(n)`
+
+### Longest Palindromic Substring
+
+From middle to two ends.
+Code complexity - `O(n^2)`
