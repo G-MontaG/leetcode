@@ -107,5 +107,13 @@ Code complexity - `O(n)`
 
 ### Longest Palindromic Substring
 
-From middle to two ends.
+From middle to two ends. Variation of two pointers technique.
 Code complexity - `O(n^2)`
+
+### Increasing Triplet Subsequence
+
+Start `min` off at the first element so that `secondMinUpdatedAfterMin` is bigger, unlike the case where we start at `Infinity`. This makes it clear that `min` is the minimum thus far, and more importantly it's obvious that we are using the the two variables as our respective `i` and `j` elements since `min < secondMinUpdatedAfterMin`.
+
+Most importantly `secondMinUpdatedAfterMin` is a better name than `bigger` or even `secondMin` because these do not convey when the variable is updated. A name like `secondMin` is presumed to be the global second minimum so far, which is definitely not the case.
+
+Code complexity - `O(n)`

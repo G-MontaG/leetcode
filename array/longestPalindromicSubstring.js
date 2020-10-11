@@ -4,13 +4,14 @@
 // S O(1)
 const longestPalindrome = (s) => {
   let max = "";
-  for (let i = 0; i < s.length; i++) {
+  const length = s.length;
+  for (let i = 0; i < length; i++) {
     // this loop is to take into account
     // different palindromes like 'aba' and 'abba'
     for (let j = 0; j < 2; j++) {
       let left = i;
       let right = i + j;
-      while (s[left] && s[left] === s[right]) {
+      while (left >= 0 && right <= length && s[left] === s[right]) {
         left--;
         right++;
       }
@@ -26,7 +27,7 @@ const longestPalindrome = (s) => {
     }
 
     // No better move exists
-    if (Math.ceil(max.length / 2) >= s.length - i) break;
+    if (Math.ceil(max.length / 2) >= length - i) break;
   }
   return max;
 };
