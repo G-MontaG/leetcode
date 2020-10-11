@@ -34,3 +34,7 @@ Space Complexity: `O(1)`
 ### Add two numbers
 
 It goes without saying
+
+### Odd even linked list
+
+Explanation in python code
