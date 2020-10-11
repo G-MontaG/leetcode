@@ -38,3 +38,7 @@ It goes without saying
 ### Odd even linked list
 
 Explanation in python code
+
+### Intersection of Two Linked Lists
+
+Two pointers solution
