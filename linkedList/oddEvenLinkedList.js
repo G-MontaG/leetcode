@@ -1,4 +1,3 @@
-// https://leetcode.com/problems/odd-even-linked-list/
 /**
  * Definition for singly-linked list.
  * function ListNode(val, next) {
@@ -15,12 +14,15 @@ const oddEvenList = (head) => {
 
   let odd = head;
   let even = head.next;
-  while (odd.next && odd.next.next) {
-    let tmp = odd.next;
+  let evenHead = even;
+
+  while (even && even.next) {
     odd.next = odd.next.next;
+    even.next = even.next.next;
     odd = odd.next;
-    tmp.next = odd.next;
+    even = even.next;
   }
-  odd.next = even;
+
+  odd.next = evenHead;
   return head;
 };
