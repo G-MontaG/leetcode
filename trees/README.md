@@ -23,3 +23,19 @@ Solution based on BFS
 ## Convert Sorted Array to Binary Search Tree
 
 Recursive solution
+
+## Binary Tree Traversal
+
+Code contains three different solutions
+
+- Iterative solution, DFS
+- Recursive solution, DFS
+- Visited flag approach
+
+[Wiki](https://en.wikipedia.org/wiki/Tree_traversal)
+
+### Binary Tree Preorder Traversal
+
+### Binary Tree Inorder Traversal
+
+### Binary Tree Postorder Traversal
