@@ -4,15 +4,17 @@ const levelOrder = (root) => {
   if (!root) {
     return [];
   }
-  const stack = [];
-  stack.push(root);
+
+  const stack = [root];
   const result = [];
+
   while (stack.length > 0) {
     const size = stack.length;
-    const temp = [];
+    const level = [];
+
     for (let i = 0; i < size; i++) {
       const node = stack.shift();
-      temp.push(node.val);
+      level.push(node.val);
       if (node.left) {
         stack.push(node.left);
       }
@@ -20,7 +22,7 @@ const levelOrder = (root) => {
         stack.push(node.right);
       }
     }
-    result.push(temp);
+    result.push(level);
   }
   return result;
 };

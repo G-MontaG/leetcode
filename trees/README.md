@@ -16,10 +16,6 @@ See comments in python solution
 
 See comments in python solution
 
-## Binary Tree Level Order Traversal
-
-Solution based on BFS
-
 ## Convert Sorted Array to Binary Search Tree
 
 Recursive solution
@@ -39,3 +35,7 @@ Code contains three different solutions
 ### Binary Tree Inorder Traversal
 
 ### Binary Tree Postorder Traversal
+
+## Binary Tree Level Order Traversal
+
+Solution based on BFS. There are other possible solutions listed in python files, but usually, you should use BSF.
