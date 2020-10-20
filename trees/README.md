@@ -39,3 +39,7 @@ Code contains three different solutions
 ## Binary Tree Level Order Traversal
 
 Solution based on BFS. There are other possible solutions listed in python files, but usually, you should use BSF.
+
+## Binary Tree Zigzag Level Order Traversal
+
+Same as level order traversal except reversing odd levels.
