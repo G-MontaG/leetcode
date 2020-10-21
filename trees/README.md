@@ -43,3 +43,13 @@ Solution based on BFS. There are other possible solutions listed in python files
 ## Binary Tree Zigzag Level Order Traversal
 
 Same as level order traversal except reversing odd levels.
+
+## Construct Binary Tree from Traversal
+
+Recursive solution with hashing. Solution has `O(N)` time and extra space.
+
+### Construct Binary Tree from Preorder and Inorder Traversal
+
+### Construct Binary Tree from Inorder and Postorder Traversal
+
+### Construct Binary Tree from Preorder and Postorder Traversal
