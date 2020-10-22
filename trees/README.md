@@ -29,6 +29,7 @@ Code contains three different solutions
 - Visited flag approach
 
 [Wiki](https://en.wikipedia.org/wiki/Tree_traversal)
+[Youtube](https://youtu.be/BHB0B1jFKQc)
 
 ### Binary Tree Preorder Traversal
 
@@ -47,6 +48,8 @@ Same as level order traversal except reversing odd levels.
 ## Construct Binary Tree from Traversal
 
 Recursive solution with hashing. Solution has `O(N)` time and extra space.
+
+[LeetCode](<https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/discuss/758662/Python-O(n)-recursion-explained-with-diagram>)
 
 ### Construct Binary Tree from Preorder and Inorder Traversal
 

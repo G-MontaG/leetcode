@@ -14,18 +14,18 @@
  */
 const buildTree = (inorder, postorder) => {
   let hash = {};
-  for (let i = 0; i < inorder.length; i++) {
-    hash[inorder[i]] = i;
-  }
+  inorder.forEach((e, i) => {
+    hash[e] = i;
+  });
 
-  let recur = function (start, end) {
+  const dfs = (start, end) => {
     if (start > end) return null;
-    let val = postorder.pop();
+    const val = postorder.pop();
     let root = new TreeNode(val);
-    root.right = recur(hash[val] + 1, end);
-    root.left = recur(start, hash[val] - 1);
+    root.right = dfs(hash[val] + 1, end);
+    root.left = dfs(start, hash[val] - 1);
     return root;
   };
 
-  return recur(0, inorder.length - 1);
+  return dfs(0, inorder.length - 1);
 };

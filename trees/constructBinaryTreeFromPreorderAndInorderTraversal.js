@@ -18,13 +18,14 @@ const buildTree = (preorder, inorder) => {
     hash[e] = i;
   });
 
-  let recur = function (start, end) {
+  const dfs = (start, end) => {
     if (start > end) return null;
-    let root = new TreeNode(preorder.shift());
-    root.left = recur(start, hash[root.val] - 1);
-    root.right = recur(hash[root.val] + 1, end);
+    const val = preorder.shift();
+    let root = new TreeNode(val);
+    root.left = dfs(start, hash[val] - 1);
+    root.right = dfs(hash[val] + 1, end);
     return root;
   };
 
-  return recur(0, inorder.length - 1);
+  return dfs(0, inorder.length - 1);
 };
