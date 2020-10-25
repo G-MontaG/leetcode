@@ -56,3 +56,7 @@ Recursive solution with hashing. Solution has `O(N)` time and extra space.
 ### Construct Binary Tree from Inorder and Postorder Traversal
 
 ### Construct Binary Tree from Preorder and Postorder Traversal
+
+## Populating Next Right Pointers in Each Node
+
+DFS solution
