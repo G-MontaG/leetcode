@@ -61,6 +61,10 @@ Recursive solution with hashing. Solution has `O(N)` time and extra space.
 
 DFS solution
 
-### Kth Smallest Element in a BST
+## Kth Smallest Element in a BST
 
 BFS solution. Solution has `O(N)` time and extra space.
+
+## Number Of Islands
+
+DFS solution
