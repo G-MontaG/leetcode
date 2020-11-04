@@ -26,3 +26,5 @@ Our Goal: Place all k left and all k right parens.
 ## Subsets
 
 [Youtube](https://www.youtube.com/watch?v=RkXl5iYoQn4&t=685s)
+
+## Word Search
