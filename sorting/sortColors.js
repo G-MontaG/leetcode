@@ -18,7 +18,7 @@ const sortColors = (nums) => {
       red++;
       white++;
     } else if (nums[white] === 2) {
-      swap(white, blue, nums);
+      swap(blue, white, nums);
       blue--;
     } else {
       white++;
