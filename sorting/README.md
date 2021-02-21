@@ -66,3 +66,7 @@ Complexity: `n log n`
 ## Kth Largest Element in an Array
 
 See comments
+
+## Search for a Range
+
+The idea is that we have to return two indices, one for start of the `target` and one for end of the `target` in an array. So, we use two different functions, one would go and try to find the starting index, the other to find the end index. as simple as that! We have two helper functions in the code below which are responsible for these tasks. The `main function` is just a wrapper that initializa (line `#1`) the output and assign updated values (line `#2`, `#3`) from helper functions and `return results` (line `#4`) at the end.

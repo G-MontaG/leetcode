@@ -4,7 +4,7 @@
  * @param {number} k
  * @return {number}
  */
-var findKthLargest = function (nums, k) {
+const findKthLargest = (nums, k) => {
   return quickSelect(nums, 0, nums.length - 1, k);
 };
 
@@ -58,3 +58,28 @@ function partition(arr, start, end) {
 function swap(arr, i, j) {
   [arr[i], arr[j]] = [arr[j], arr[i]];
 }
+
+// Alternative approach
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+const findKthLargest = (nums, k) => {
+  let res = [];
+  let map = new Map();
+
+  nums.forEach((n) => map.set(n, map.get(n) + 1 || 1));
+
+  let sortedArray = [...map.entries()].sort((a, b) => b[0] - a[0]);
+
+  let i = 0;
+  while (k > 0) {
+    k = k - sortedArray[i][1];
+    i++;
+  }
+
+  // i - 1 because the current index pointed to the number
+  // where we exhausted k counter. k could be negative.
+  return sortedArray[i - 1][0];
+};
